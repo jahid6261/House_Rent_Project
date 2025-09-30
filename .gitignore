@@ -1,0 +1,4 @@
+__pycache__/
+.house_env
+db.sqlite3
+  

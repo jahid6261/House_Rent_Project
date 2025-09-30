@@ -1,0 +1,382 @@
+[
+    {
+        "model": "product.category",
+        "pk": 1,
+        "fields": {
+            "name": "Flat",
+            "description": "Family flats for rent"
+        }
+    },
+    {
+        "model": "product.category",
+        "pk": 2,
+        "fields": {
+            "name": "Sublet",
+            "description": "Sublet rooms for students or professionals"
+        }
+    },
+    {
+        "model": "product.category",
+        "pk": 3,
+        "fields": {
+            "name": "Apartment",
+            "description": "Apartments for long-term rent"
+        }
+    },
+    {
+        "model": "product.category",
+        "pk": 4,
+        "fields": {
+            "name": "House",
+            "description": "Full house for rent"
+        }
+    },
+    
+    
+    {
+        "model": "product.product",
+        "pk": 1,
+        "fields": {
+            "title": "Flat 1 in Dhanmondi",
+            "owner": 1,
+            "address": "House 12, Road 5, Dhanmondi",
+            "location": "Dhaka",
+            "description": "2 bed, 1 kitchen, 1 balcony",
+            "category": 1,
+            "stock": 1,
+            "price": "15000.00",
+            "approved": true,
+            "created_at": "2025-09-28T10:00:00Z",
+            "updated_at": "2025-09-28T10:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 2,
+        "fields": {
+            "title": "Flat 2 in Dhanmondi",
+            "owner": 1,
+            "address": "House 15, Road 3, Dhanmondi",
+            "location": "Dhaka",
+            "description": "3 bed, 1 kitchen",
+            "category": 1,
+            "stock": 1,
+            "price": "18000.00",
+            "approved": true,
+            "created_at": "2025-09-28T10:10:00Z",
+            "updated_at": "2025-09-28T10:10:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 3,
+        "fields": {
+            "title": "Flat 3 in Dhanmondi",
+            "owner": 1,
+            "address": "House 22, Road 7, Dhanmondi",
+            "location": "Dhaka",
+            "description": "2 bed, 2 bathrooms",
+            "category": 1,
+            "stock": 1,
+            "price": "16000.00",
+            "approved": true,
+            "created_at": "2025-09-28T10:20:00Z",
+            "updated_at": "2025-09-28T10:20:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 4,
+        "fields": {
+            "title": "Flat 4 in Dhanmondi",
+            "owner": 1,
+            "address": "House 30, Road 2, Dhanmondi",
+            "location": "Dhaka",
+            "description": "2 bed, 1 kitchen, 1 balcony",
+            "category": 1,
+            "stock": 1,
+            "price": "15500.00",
+            "approved": true,
+            "created_at": "2025-09-28T10:30:00Z",
+            "updated_at": "2025-09-28T10:30:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 5,
+        "fields": {
+            "title": "Flat 5 in Dhanmondi",
+            "owner": 1,
+            "address": "House 35, Road 6, Dhanmondi",
+            "location": "Dhaka",
+            "description": "3 bed, 2 bathrooms",
+            "category": 1,
+            "stock": 1,
+            "price": "17000.00",
+            "approved": true,
+            "created_at": "2025-09-28T10:40:00Z",
+            "updated_at": "2025-09-28T10:40:00Z"
+        }
+    },
+
+    
+    {
+        "model": "product.product",
+        "pk": 6,
+        "fields": {
+            "title": "Sublet 1 in Mirpur",
+            "owner": 2,
+            "address": "House 10, Road 8, Mirpur",
+            "location": "Dhaka",
+            "description": "Single room, attached washroom",
+            "category": 2,
+            "stock": 1,
+            "price": "7000.00",
+            "approved": true,
+            "created_at": "2025-09-28T11:00:00Z",
+            "updated_at": "2025-09-28T11:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 7,
+        "fields": {
+            "title": "Sublet 2 in Mirpur",
+            "owner": 2,
+            "address": "House 15, Road 5, Mirpur",
+            "location": "Dhaka",
+            "description": "Single room with balcony",
+            "category": 2,
+            "stock": 1,
+            "price": "7500.00",
+            "approved": true,
+            "created_at": "2025-09-28T11:10:00Z",
+            "updated_at": "2025-09-28T11:10:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 8,
+        "fields": {
+            "title": "Sublet 3 in Mirpur",
+            "owner": 2,
+            "address": "House 20, Road 3, Mirpur",
+            "location": "Dhaka",
+            "description": "Shared room, 2 bed",
+            "category": 2,
+            "stock": 1,
+            "price": "6500.00",
+            "approved": true,
+            "created_at": "2025-09-28T11:20:00Z",
+            "updated_at": "2025-09-28T11:20:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 9,
+        "fields": {
+            "title": "Sublet 4 in Mirpur",
+            "owner": 2,
+            "address": "House 25, Road 2, Mirpur",
+            "location": "Dhaka",
+            "description": "Single room with kitchen",
+            "category": 2,
+            "stock": 1,
+            "price": "7200.00",
+            "approved": true,
+            "created_at": "2025-09-28T11:30:00Z",
+            "updated_at": "2025-09-28T11:30:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 10,
+        "fields": {
+            "title": "Sublet 5 in Mirpur",
+            "owner": 2,
+            "address": "House 30, Road 7, Mirpur",
+            "location": "Dhaka",
+            "description": "Single room, fully furnished",
+            "category": 2,
+            "stock": 1,
+            "price": "7700.00",
+            "approved": true,
+            "created_at": "2025-09-28T11:40:00Z",
+            "updated_at": "2025-09-28T11:40:00Z"
+        }
+    },
+
+    
+    {
+        "model": "product.product",
+        "pk": 11,
+        "fields": {
+            "title": "Apartment 1 in Gulshan",
+            "owner": 3,
+            "address": "House 5, Road 10, Gulshan",
+            "location": "Dhaka",
+            "description": "2 bed, 1 kitchen, parking",
+            "category": 3,
+            "stock": 1,
+            "price": "25000.00",
+            "approved": true,
+            "created_at": "2025-09-28T12:00:00Z",
+            "updated_at": "2025-09-28T12:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 12,
+        "fields": {
+            "title": "Apartment 2 in Gulshan",
+            "owner": 3,
+            "address": "House 8, Road 12, Gulshan",
+            "location": "Dhaka",
+            "description": "3 bed, 2 bathrooms",
+            "category": 3,
+            "stock": 1,
+            "price": "27000.00",
+            "approved": true,
+            "created_at": "2025-09-28T12:10:00Z",
+            "updated_at": "2025-09-28T12:10:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 13,
+        "fields": {
+            "title": "Apartment 3 in Gulshan",
+            "owner": 3,
+            "address": "House 12, Road 14, Gulshan",
+            "location": "Dhaka",
+            "description": "2 bed, 2 bathrooms",
+            "category": 3,
+            "stock": 1,
+            "price": "26000.00",
+            "approved": true,
+            "created_at": "2025-09-28T12:20:00Z",
+            "updated_at": "2025-09-28T12:20:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 14,
+        "fields": {
+            "title": "Apartment 4 in Gulshan",
+            "owner": 3,
+            "address": "House 15, Road 16, Gulshan",
+            "location": "Dhaka",
+            "description": "3 bed, 1 kitchen",
+            "category": 3,
+            "stock": 1,
+            "price": "28000.00",
+            "approved": true,
+            "created_at": "2025-09-28T12:30:00Z",
+            "updated_at": "2025-09-28T12:30:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 15,
+        "fields": {
+            "title": "Apartment 5 in Gulshan",
+            "owner": 3,
+            "address": "House 18, Road 18, Gulshan",
+            "location": "Dhaka",
+            "description": "2 bed, 1 kitchen, balcony",
+            "category": 3,
+            "stock": 1,
+            "price": "26500.00",
+            "approved": true,
+            "created_at": "2025-09-28T12:40:00Z",
+            "updated_at": "2025-09-28T12:40:00Z"
+        }
+    },
+
+
+    {
+        "model": "product.product",
+        "pk": 16,
+        "fields": {
+            "title": "House 1 in Uttara",
+            "owner": 4,
+            "address": "House 3, Road 5, Uttara",
+            "location": "Dhaka",
+            "description": "3 bed, 2 bathrooms, garden",
+            "category": 4,
+            "stock": 1,
+            "price": "35000.00",
+            "approved": true,
+            "created_at": "2025-09-28T13:00:00Z",
+            "updated_at": "2025-09-28T13:00:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 17,
+        "fields": {
+            "title": "House 2 in Uttara",
+            "owner": 4,
+            "address": "House 5, Road 7, Uttara",
+            "location": "Dhaka",
+            "description": "2 bed, 1 kitchen",
+            "category": 4,
+            "stock": 1,
+            "price": "30000.00",
+            "approved": true,
+            "created_at": "2025-09-28T13:10:00Z",
+            "updated_at": "2025-09-28T13:10:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 18,
+        "fields": {
+            "title": "House 3 in Uttara",
+            "owner": 4,
+            "address": "House 8, Road 9, Uttara",
+            "location": "Dhaka",
+            "description": "4 bed, 3 bathrooms, garage",
+            "category": 4,
+            "stock": 1,
+            "price": "40000.00",
+            "approved": true,
+            "created_at": "2025-09-28T13:20:00Z",
+            "updated_at": "2025-09-28T13:20:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 19,
+        "fields": {
+            "title": "House 4 in Uttara",
+            "owner": 4,
+            "address": "House 10, Road 12, Uttara",
+            "location": "Dhaka",
+            "description": "3 bed, 2 bathrooms, terrace",
+            "category": 4,
+            "stock": 1,
+            "price": "36000.00",
+            "approved": true,
+            "created_at": "2025-09-28T13:30:00Z",
+            "updated_at": "2025-09-28T13:30:00Z"
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 20,
+        "fields": {
+            "title": "House 5 in Uttara",
+            "owner": 4,
+            "address": "House 12, Road 15, Uttara",
+            "location": "Dhaka",
+            "description": "2 bed, 1 kitchen, garden",
+            "category": 4,
+            "stock": 1,
+            "price": "32000.00",
+            "approved": true,
+            "created_at": "2025-09-28T13:40:00Z",
+            "updated_at": "2025-09-28T13:40:00Z"
+        }
+    }
+]
