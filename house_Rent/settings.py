@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
-
+from decouple import config
+import cloudinary
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-gj&_7$g@@#!9gpukcn23f+co_e!5xcx!sy_^^)yyhve9qqo+%m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [".vercel.app",'127.0.0.1' ]
 AUTH_USER_MODEL= 'users.User'
 
 
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
       "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -85,18 +87,31 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'house_Rent.wsgi.application'
+WSGI_APPLICATION = 'house_Rent.wsgi.app'
 
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+ #DATABASES = {
+ 
+   # 'default': {
+      #  'ENGINE': 'django.db.backends.sqlite3',
+     #  'NAME': BASE_DIR / 'db.sqlite3',
+    #}
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config("dbname"),
+        'USER': config('user'),
+        'PASSWORD':config('password'),
+        'HOST': config('host'),
+        'PORT': config('port'),
     }
 }
+
 
 
 # Password validation
@@ -138,11 +153,26 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATICFIELS_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Configuration  for cloudinary storage     
+cloudinary.config( 
+    cloud_name =config('cloud_name'),
+    api_key = config('cloudinary_api_key'),
+    api_secret =config('api_secret'),
+    secure=True
+)
+
+# media storage setting
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 REST_FRAMEWORK ={
     'COERCE_DECIMAL_TO_STRING': False,
      'DEFAULT_AUTHENTICATION_CLASSES': (

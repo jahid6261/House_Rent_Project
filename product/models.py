@@ -5,7 +5,7 @@ from django.conf import settings
 
 from product.validators import validate_file_size
 from django.core.validators import MinValueValidator,MaxValueValidator
-
+from cloudinary.models import CloudinaryField
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True, null=True)         
@@ -39,8 +39,11 @@ class Product(models.Model):
 class ProductImage(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(
-        upload_to="products/images/", validators=[validate_file_size])    
+    image = CloudinaryField('image')
+       
+
+
+
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
