@@ -17,10 +17,9 @@ class Category(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=200)
     owner = models.ForeignKey(
-        settings.AUTH_USER_MODEL, 
-        on_delete=models.CASCADE,
-        related_name="products"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True
     )
+ 
     address = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
     description = models.TextField()
