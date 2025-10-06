@@ -2,7 +2,7 @@
     "builds": [{
       "src": "house_Rent/wsgi.py",
       "use": "@vercel/python",
-      "config": { "maxLambdaSize": "15mb", "runtime": "python3.11.3" }
+      "config": { "maxLambdaSize": "15mb", "runtime": "python3.13.7" }
     }],
     "routes": [
       {
@@ -10,4 +10,4 @@
         "dest": "house_Rent/wsgi.py"
       }
     ]
-}
+} 
