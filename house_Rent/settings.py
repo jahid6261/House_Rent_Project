@@ -55,17 +55,17 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-     "corsheaders.middleware.CorsMiddleware",
+      "corsheaders.middleware.CorsMiddleware",
       "debug_toolbar.middleware.DebugToolbarMiddleware",
       'django.middleware.security.SecurityMiddleware',
       "whitenoise.middleware.WhiteNoiseMiddleware",
     
       'django.contrib.sessions.middleware.SessionMiddleware',
-     'django.middleware.common.CommonMiddleware',
-     'django.middleware.csrf.CsrfViewMiddleware',
-     'django.contrib.auth.middleware.AuthenticationMiddleware',
-     'django.contrib.messages.middleware.MessageMiddleware',
-     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+      'django.middleware.common.CommonMiddleware',
+      'django.middleware.csrf.CsrfViewMiddleware',
+      'django.contrib.auth.middleware.AuthenticationMiddleware',
+      'django.contrib.messages.middleware.MessageMiddleware',
+      'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 INTERNAL_IPS = [
@@ -197,6 +197,9 @@ SIMPLE_JWT = {
 }
 
 DJOSER = {
+    "EMAIL_FRONTEND_PROTOCOL":config("FRONTEND_PROTOCOL"),
+    "EMAIL_FRONTEND_DOMAIN":config("FRONTEND_DOMAIN"),
+    "EMAIL_FRONTEND_SITE_NAME":"House_Rent",
 
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
     
