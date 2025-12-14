@@ -40,6 +40,7 @@ urlpatterns = [
        
          path('', api_root_view),
         path('api/v1/', include('api.urls'), name='api-root'),
+        path('api/v1/payments/', include('payments.urls')), 
         
         path('swagger/', schema_view.with_ui('swagger', cache_timeout=0),
               name='schema-swagger-ui'),

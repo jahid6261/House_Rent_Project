@@ -2,6 +2,7 @@ from django.db import models
 
 
 from django.conf import settings
+User = settings.AUTH_USER_MODEL
 
 from product.validators import validate_file_size
 from django.core.validators import MinValueValidator,MaxValueValidator
@@ -73,5 +74,22 @@ class Favorite(models.Model):
 
     def __str__(self):
         return f"{self.user}  {self.advertisement.title}"
-    
+
+
+
+class Booking(models.Model):
+    STATUS_CHOICES = (
+        ('Pending', 'Pending'),
+        ('Paid', 'Paid'),
+        ('Cancelled', 'Cancelled'),
+    )
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)  
+    rent_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} -> {self.product.title}"    
 
