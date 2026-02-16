@@ -6,14 +6,15 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from api.permissions import IsAdminOrReadOnly
 from product.permissions import IsReviewAuthorOrReadonly
-from .models import Category, Product, RentRequest, Favorite,Review,ProductImage
+from .models import Category, Product, RentRequest, Favorite,Review,ProductImage,Booking
 from .serializers import (
     CategorySerializer,
     ProductSerializer,
     RentRequestSerializer,
     FavoriteSerializer,
     ReviewSerializer,
-    ProductImageSerializer
+    ProductImageSerializer,
+    BookingSerializer
 )
 from product.filters import ProductFilter
 from product.paginations import DefaultPagination  
@@ -125,3 +126,16 @@ class ReviewViewSet(ModelViewSet):
     def get_serializer_context(self):
         return {'product_id': self.kwargs.get('product_pk')}     
  
+ 
+ 
+ 
+class BookingViewSet(viewsets.ModelViewSet):
+    serializer_class = BookingSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        
+        return Booking.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

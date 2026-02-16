@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from .models import Category, Product,  RentRequest, Favorite,Review,ProductImage
+from .models import Category, Product,  RentRequest, Favorite,Review,ProductImage,Booking
 from django.contrib.auth import get_user_model
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -75,4 +75,22 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         product_id = self.context['product_id']
-        return Review.objects.create(product_id=product_id, **validated_data)        
+        return Review.objects.create(product_id=product_id, **validated_data)    
+    
+    
+class BookingSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
+    product_title = serializers.CharField(source="product.title", read_only=True)
+
+    class Meta:
+        model = Booking
+        fields = [
+            "id",
+            "user",
+            "product",
+            "product_title",
+            "rent_amount",
+            "status",
+            "created_at",
+        ]
+        read_only_fields = ["status", "created_at"]        

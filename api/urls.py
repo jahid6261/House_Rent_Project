@@ -3,7 +3,8 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from rest_framework_nested import routers
 from adminpanel.views import AdminAdvertisementViewSet
-from product.views import CategoryViewSet, ProductViewSet, RentRequestViewSet, FavoriteViewSet,ReviewViewSet,ProductImageViewSet
+from product.views import CategoryViewSet, ProductViewSet, RentRequestViewSet,FavoriteViewSet,ReviewViewSet,ProductImageViewSet,BookingViewSet
+
 
 
 # Main router
@@ -22,6 +23,7 @@ products_router.register('reviews', ReviewViewSet, basename='product-reviews')
 products_router.register('images', ProductImageViewSet,
                         basename='product-images')
 router.register( 'admin-ads', AdminAdvertisementViewSet, basename='admin-ads')
+router.register("bookings", BookingViewSet, basename="booking")
 urlpatterns = [
     path('', include(router.urls)),
     path('', include(products_router.urls)),
