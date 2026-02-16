@@ -6,11 +6,11 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from api.permissions import IsAdminOrReadOnly
 from product.permissions import IsReviewAuthorOrReadonly
-from .models import Category, Product, RentRequest, Favorite,Review,ProductImage,Booking
+from .models import Category, Product,  Favorite,Review,ProductImage,Booking
 from .serializers import (
     CategorySerializer,
     ProductSerializer,
-    RentRequestSerializer,
+    
     FavoriteSerializer,
     ReviewSerializer,
     ProductImageSerializer,
@@ -65,22 +65,6 @@ class ProductImageViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(product_id=self.kwargs.get('product_pk'))
-
-
-class RentRequestViewSet(viewsets.ModelViewSet):
-    serializer_class = RentRequestSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    @swagger_auto_schema(
-        operation_summary="List rent requests",
-        operation_description="Retrieve all rent requests for a specific advertisement."
-    )
-    def get_queryset(self):
-        product_pk = self.kwargs.get('product_pk')
-        
-        return RentRequest.objects.filter(advertisement_id=product_pk)
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user, advertisement_id=self.kwargs.get('product_pk'))
 
 
 

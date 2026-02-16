@@ -3,7 +3,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from rest_framework_nested import routers
 from adminpanel.views import AdminAdvertisementViewSet
-from product.views import CategoryViewSet, ProductViewSet, RentRequestViewSet,FavoriteViewSet,ReviewViewSet,ProductImageViewSet,BookingViewSet
+from product.views import CategoryViewSet, ProductViewSet,FavoriteViewSet,ReviewViewSet,ProductImageViewSet,BookingViewSet
 
 
 
@@ -17,7 +17,7 @@ product_router = routers.NestedDefaultRouter(
     router, 'products', lookup='product')
 
 products_router = routers.NestedDefaultRouter(router, 'products', lookup='product')
-products_router.register('rent-requests', RentRequestViewSet, basename='product-rentrequests')
+
 products_router.register('favorites', FavoriteViewSet, basename='product-favorites')
 products_router.register('reviews', ReviewViewSet, basename='product-reviews') 
 products_router.register('images', ProductImageViewSet,

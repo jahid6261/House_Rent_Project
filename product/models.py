@@ -58,14 +58,7 @@ class Review(models.Model):
 
 
 
-class RentRequest(models.Model):  
-    advertisement = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="rent_requests")
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    accepted = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"{self.user} -> {self.advertisement.title}"
 
 
 class Favorite(models.Model):  

@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from .models import Category, Product,  RentRequest, Favorite,Review,ProductImage,Booking
+from .models import Category, Product,  Favorite,Review,ProductImage,Booking
 from django.contrib.auth import get_user_model
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -39,10 +39,6 @@ class ProductSerializer(serializers.ModelSerializer):
         ]
 
 
-class RentRequestSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RentRequest
-        fields = ['id', 'advertisement', 'user', 'accepted', 'created_at']
 
 
 class FavoriteSerializer(serializers.ModelSerializer):
