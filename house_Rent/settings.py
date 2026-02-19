@@ -14,6 +14,10 @@ from pathlib import Path
 from datetime import timedelta
 from decouple import config
 import cloudinary
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -121,6 +125,7 @@ DATABASES = {
     }
 }
 
+# SSLCommerz
 
 
 # Password validation
@@ -172,6 +177,15 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+
+
+SSL_STORE_ID = os.getenv("SSL_STORE_ID")
+SSL_STORE_PASS = os.getenv("SSL_STORE_PASS")
+SSL_SANDBOX = os.getenv("SSL_SANDBOX") == "True"
+
+BACKEND_URL = os.getenv("BACKEND_URL")
+FRONTEND_URL = os.getenv("FRONTEND_URL")
 # Configuration  for cloudinary storage     
 cloudinary.config( 
     cloud_name =config('cloud_name'),
