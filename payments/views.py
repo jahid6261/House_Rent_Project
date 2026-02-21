@@ -9,14 +9,14 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from sslcommerz_lib import SSLCOMMERZ
-from .models import Payment
 from product.models import Booking
 
 
-
+# =========================
 # INITIATE PAYMENT
+# =========================
 
-@api_view(['POST'])
+@api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
 def initiate_payment(request):
     user = request.user
@@ -27,16 +27,13 @@ def initiate_payment(request):
 
     booking = get_object_or_404(Booking, id=booking_id, user=user)
 
-    amount = booking.rent_amount
-    transaction_id = str(uuid.uuid4())
+    # Already paid check
+    if booking.status == "Paid":
+        return Response({"error": "Already Paid"}, status=400)
 
-    payment = Payment.objects.create(
-        user=user,
-        booking=booking,
-        amount=amount,
-        transaction_id=transaction_id,
-        status='PENDING'
-    )
+    transaction_id = str(uuid.uuid4())
+    booking.transaction_id = transaction_id
+    booking.save()
 
     ssl_settings = {
         'store_id': settings.SSL_STORE_ID,
@@ -47,7 +44,7 @@ def initiate_payment(request):
     sslcz = SSLCOMMERZ(ssl_settings)
 
     post_body = {
-        'total_amount': amount,
+        'total_amount': float(booking.rent_amount),
         'currency': "BDT",
         'tran_id': transaction_id,
         'success_url': f"{settings.BACKEND_URL}/api/v1/payments/success/",
@@ -55,13 +52,13 @@ def initiate_payment(request):
         'cancel_url': f"{settings.BACKEND_URL}/api/v1/payments/cancel/",
         'cus_name': f"{user.first_name} {user.last_name}",
         'cus_email': user.email,
-        'cus_phone': user.phone_number,
-        'cus_add1': user.address,
+        'cus_phone': getattr(user, "phone_number", "01700000000"),
+        'cus_add1': getattr(user, "address", "Dhaka"),
         'cus_city': "Dhaka",
         'cus_country': "Bangladesh",
         'shipping_method': "NO",
         'num_of_item': 1,
-        'product_name': "House Rent Payment",
+        'product_name': booking.product.title,
         'product_category': "Rent",
         'product_profile': "general"
     }
@@ -77,21 +74,50 @@ def initiate_payment(request):
     return Response({"error": "Payment initiation failed"}, status=400)
 
 
-
+# =========================
 # SUCCESS
+# =========================
 
 @csrf_exempt
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 def payment_success(request):
-    tran_id = request.GET.get("tran_id") or request.data.get("tran_id")
+    tran_id = request.data.get("tran_id")
+    val_id = request.data.get("val_id")
 
-    payment = get_object_or_404(Payment, transaction_id=tran_id)
+    booking = get_object_or_404(Booking, transaction_id=tran_id)
 
-    payment.status = 'SUCCESS'
-    payment.save()
+    ssl_settings = {
+        'store_id': settings.SSL_STORE_ID,
+        'store_pass': settings.SSL_STORE_PASS,
+        'issandbox': settings.SSL_SANDBOX
+    }
 
-    booking = payment.booking
-    booking.status = 'Paid'
+    sslcz = SSLCOMMERZ(ssl_settings)
+    validation = sslcz.validationTransaction(val_id)
+
+    if validation.get("status") == "VALID":
+        booking.status = "Paid"
+        booking.save()
+    else:
+        booking.status = "Cancelled"
+        booking.save()
+
+    return HttpResponseRedirect(
+        f"{settings.FRONTEND_URL}/dashboard/rent/"
+    )
+
+
+# =========================
+# FAIL
+# =========================
+
+@csrf_exempt
+@api_view(['POST'])
+def payment_fail(request):
+    tran_id = request.data.get("tran_id")
+
+    booking = get_object_or_404(Booking, transaction_id=tran_id)
+    booking.status = "Cancelled"
     booking.save()
 
     return HttpResponseRedirect(
@@ -99,36 +125,18 @@ def payment_success(request):
     )
 
 
-
-# FAIL
-
-@csrf_exempt
-@api_view(['GET', 'POST'])
-def payment_fail(request):
-    tran_id = request.GET.get("tran_id") or request.data.get("tran_id")
-
-    payment = get_object_or_404(Payment, transaction_id=tran_id)
-
-    payment.status = 'FAILED'
-    payment.save()
-
-    return HttpResponseRedirect(
-        f"{settings.FRONTEND_URL}/dashboard/rent/"
-    )
-
-
-
+# =========================
 # CANCEL
+# =========================
 
 @csrf_exempt
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 def payment_cancel(request):
-    tran_id = request.GET.get("tran_id") or request.data.get("tran_id")
+    tran_id = request.data.get("tran_id")
 
-    payment = get_object_or_404(Payment, transaction_id=tran_id)
-
-    payment.status = 'CANCELLED'
-    payment.save()
+    booking = get_object_or_404(Booking, transaction_id=tran_id)
+    booking.status = "Cancelled"
+    booking.save()
 
     return HttpResponseRedirect(
         f"{settings.FRONTEND_URL}/dashboard/rent/"

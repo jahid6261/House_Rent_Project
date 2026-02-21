@@ -85,8 +85,15 @@ class BookingSerializer(serializers.ModelSerializer):
             "user",
             "product",
             "product_title",
-            "rent_amount",
+            "price",
             "status",
             "created_at",
         ]
-        read_only_fields = ["status", "created_at"]        
+        read_only_fields = ["status", "created_at", "price"]  
+
+    def create(self, validated_data):
+       
+        product = validated_data.get("product")
+        if product and not validated_data.get("price"):
+            validated_data["price"] = product.price
+        return super().create(validated_data)      
