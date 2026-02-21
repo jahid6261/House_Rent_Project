@@ -31,8 +31,19 @@ SECRET_KEY = 'django-insecure-gj&_7$g@@#!9gpukcn23f+co_e!5xcx!sy_^^)yyhve9qqo+%m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [ ".vercel.app", '127.0.0.1']
+ALLOWED_HOSTS = [ ".vercel.app", '127.0.0.1','localhost']
 AUTH_USER_MODEL= 'users.User'
+
+CORS_ALLOWED_ORIGINS = [
+    
+    "http://localhost:5173",
+    
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://house-rent-project-one.vercel.app", # আপনার ব্যাকএন্ড লিঙ্ক
+    "http://localhost:5173",
+]
+
 
 
 # Application definition
@@ -78,11 +89,7 @@ INTERNAL_IPS = [
     # ...
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    
-    "http://localhost:5173",
-    
-]
+
 ROOT_URLCONF = 'house_Rent.urls'
 
 TEMPLATES = [

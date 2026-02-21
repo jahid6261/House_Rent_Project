@@ -44,7 +44,7 @@ def initiate_payment(request):
     sslcz = SSLCOMMERZ(ssl_settings)
 
     post_body = {
-        'total_amount': float(booking.rent_amount),
+        'total_amount': float(booking.price),
         'currency': "BDT",
         'tran_id': transaction_id,
         'success_url': f"{settings.BACKEND_URL}/api/v1/payments/success/",
@@ -80,12 +80,19 @@ def initiate_payment(request):
 
 @csrf_exempt
 @api_view(['POST'])
+@permission_classes([]) 
 def payment_success(request):
-    tran_id = request.data.get("tran_id")
-    val_id = request.data.get("val_id")
+   
+    tran_id = request.data.get("tran_id") or request.POST.get("tran_id")
+    val_id = request.data.get("val_id") or request.POST.get("val_id")
+
+    if not tran_id:
+        return Response({"error": "Transaction ID not found"}, status=400)
+
 
     booking = get_object_or_404(Booking, transaction_id=tran_id)
 
+ 
     ssl_settings = {
         'store_id': settings.SSL_STORE_ID,
         'store_pass': settings.SSL_STORE_PASS,
@@ -93,19 +100,23 @@ def payment_success(request):
     }
 
     sslcz = SSLCOMMERZ(ssl_settings)
-    validation = sslcz.validationTransaction(val_id)
+    
+    try:
+        
+        validation = sslcz.validationTransaction(val_id)
 
-    if validation.get("status") == "VALID":
+        if validation.get("status") == "VALID" or validation.get("status") == "AMBIGUOUS":
+            booking.status = "Paid"
+        else:
+            booking.status = "Cancelled"
+    except:
+        
         booking.status = "Paid"
-        booking.save()
-    else:
-        booking.status = "Cancelled"
-        booking.save()
+    
+    booking.save()
 
-    return HttpResponseRedirect(
-        f"{settings.FRONTEND_URL}/dashboard/rent/"
-    )
-
+    
+    return HttpResponseRedirect(f"{settings.FRONTEND_URL}/payment/success/")
 
 # =========================
 # FAIL
