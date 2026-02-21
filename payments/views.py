@@ -132,7 +132,7 @@ def payment_fail(request):
     booking.save()
 
     return HttpResponseRedirect(
-        f"{settings.FRONTEND_URL}/dashboard/rent/"
+        f"{settings.FRONTEND_URL}/dashboard/"
     )
 
 
@@ -150,5 +150,5 @@ def payment_cancel(request):
     booking.save()
 
     return HttpResponseRedirect(
-        f"{settings.FRONTEND_URL}/dashboard/rent/"
+        f"{settings.FRONTEND_URL}/dashboard/"
     )
