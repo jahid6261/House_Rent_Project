@@ -35,13 +35,14 @@ ALLOWED_HOSTS = [ ".vercel.app", '127.0.0.1','localhost']
 AUTH_USER_MODEL= 'users.User'
 
 CORS_ALLOWED_ORIGINS = [
-    
+    "https://house-proejct-suxt.vercel.app",
     "http://localhost:5173",
     
 ]
 CSRF_TRUSTED_ORIGINS = [
-    "https://house-rent-project-one.vercel.app", # আপনার ব্যাকএন্ড লিঙ্ক
+    "https://house-rent-project-one.vercel.app", 
     "http://localhost:5173",
+    "https://house-proejct-suxt.vercel.app",
 ]
 
 
