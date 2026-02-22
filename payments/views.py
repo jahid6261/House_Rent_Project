@@ -47,7 +47,7 @@ def initiate_payment(request):
         'total_amount': float(booking.price),
         'currency': "BDT",
         'tran_id': transaction_id,
-        'success_url': f"{settings.BACKEND_URL}/api/v1/payments/success",
+        'success_url': f"{settings.BACKEND_URL}/api/v1/payments/success/",
         'fail_url': f"{settings.BACKEND_URL}/api/v1/payments/fail/",
         'cancel_url': f"{settings.BACKEND_URL}/api/v1/payments/cancel/",
         'cus_name': f"{user.first_name} {user.last_name}",
