@@ -36,6 +36,7 @@ AUTH_USER_MODEL= 'users.User'
 
 CORS_ALLOWED_ORIGINS = [
     "https://house-proejct-suxt.vercel.app",
+     "https://house-rent-project-one.vercel.app",
     "http://localhost:5173",
     
 ]
